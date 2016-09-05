@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+ <html>
+  <head>
+    <title>{Title}</title>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+     -->
+     
+     <!-- Lightbox CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.7.0/bootstrap-lightbox.min.css">
+     
+    <style type="text/css">
+      body {
+        background-color: #f8f8f8;
+      }
+      
+      .navbar {
+        background-color: #fff;
+        min-height: 60px;
+      }
+      
+      .navbar-brand {
+        height: 48px;
+        padding: 6px 16px;
+        transition: opacity 0.25s ease;
+      }
+      .navbar-brand:hover {
+        opacity: 0.75; 
+      }
+      
+      .post {
+        margin: 20px;
+        width: 300px;
+      }
+      
+      .post img {
+        width: 100%;
+      }
+      
+    </style>
+     
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{BlogURL}">
+            <img alt="LimeStyle" src="http://static.tumblr.com/75d0wvp/5wvod1ibt/logo.png">
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div class="page-header hidden">
+    <div class="container">
+      <h1>We're working on something new <small>Come check soon...</small></h1>
+    </div>   
+  </div>
+    
+    <div class="container">
+
+        <div class="posts">
+            {block:Posts}{block:Text}
+                    <div class="post text">
+                        {block:Title}
+                            <h3><a href="{Permalink}">{Title}</a></h3>
+                        {/block:Title}{Body}
+                    </div>
+                {/block:Text}{block:Photo}
+                    <div class="post photo thumbnail">
+                        {LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}"/>{LinkCloseTag}
+
+                        {block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </div>
+                {/block:Photo}{block:Panorama}
+                    <div class="post panorama">
+                        {linkOpenTag}
+                            <img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
+                        {linkCloseTag}{block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </div>
+                {/block:Panorama}{block:Photoset}
+                    <div class="post photoset hidden">
+                        {Photoset-500}{block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </div>
+                {/block:Photoset}{block:Quote}
+                    <div class="post quote">
+                        "{Quote}"
+
+                        {block:Source}
+                            <div class="source">{Source}</div>
+                        {/block:Source}
+                    </div>
+                {/block:Quote}{block:link}
+                    <div class="post link">
+                        <a href="{URL}" class="link" {Target}>{Name}</a>
+
+                        {block:Description}
+                            <div class="description">{Description}</div>
+                        {/block:Description}
+                    </div>
+                {/block:link}{block:Chat}
+                    <div class="post chat">
+                        {block:Title}
+                            <h3><a href="{Permalink}">{Title}</a></h3>
+                        {/block:Title}
+
+                        <ul class="chat">
+                            {block:Lines}
+                                <li class="{Alt} user_{UserNumber}">
+                                    {block:Label}
+                                        <span class="label">{Label}</span>
+                                    {/block:Label}{Line}
+                                </li>
+                            {/block:Lines}
+                        </ul>
+                    </div>
+                {/block:Chat}{block:Video}
+                    <div class="post video">
+                        {Video-500}{block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </div>
+                {/block:Video}{block:Audio}
+                    <div class="post audio">
+                        {AudioEmbed}{block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </div>
+                {/block:Audio}{/block:Posts}
+        </div>
+    
+      {block:Pagination}
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+         {block:PreviousPage}
+          <li>
+            <a href="{PreviousPage}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {/block:PreviousPage}
+          {block:JumpPagination length="3"}
+            {block:CurrentPage}
+              <li><span class="current_page">{PageNumber}</span>
+            {/block:CurrentPage}
+            {block:JumpPage}
+              <li><a class="jump_page" href="{URL}">{PageNumber}</a></li>
+            {/block:JumpPage}
+          {/block:JumpPagination}
+          {block:NextPage}
+          <li>
+            <a href="{NextPage}" class="next-page" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          {/block:NextPage}
+        </ul>
+      </nav>
+      
+      {/block:Pagination}
+        
+    </div>
+    
+    <!-- Loading jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    <!-- Loading Masonry -->
+    <script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
+    
+    <!-- Loading ImagesLoaded fix for Masonry -->
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+    
+    <!-- Loading Infinite Scholl Plugin -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.1.0/jquery.infinitescroll.min.js"></script>
+    
+    <!-- Loading Lightbox -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.7.0/bootstrap-lightbox.min.js"></script>
+    
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.posts').masonry({
+          itemSelector: '.post'
+        });
+        
+        $('.posts').imagesLoaded().progress( function() {
+          $('.posts').masonry('layout');
+        });
+
+        // Adding infinite scroll
+        n = 1;
+      
+        $('.posts').infinitescroll({
+          // Pagination element that will be hidden
+          navSelector: '.pagination',
+
+          // Next page link
+          nextSelector: '.pagination li a.next-page',
+
+          // Selector of items to retrieve
+          itemSelector: '.post',
+
+          // Loading message
+          loadingText: 'Loading new items…'
+        },
+
+        // Function called once the elements are retrieved
+        function(new_elts) {
+            var elts = $(new_elts).css('opacity', 0);
+          
+            $(".posts").imagesLoaded(function(){
+              elts.animate({opacity: 1});
+              Tumblr.LikeButton.get_status_by_page(n++);
+              $(".posts").append(elts).masonry('appended', elts, 'reloadItems');
+            });
+          
+        });
+      });
+      
+    </script>
+    
+  </body>
+</html>
