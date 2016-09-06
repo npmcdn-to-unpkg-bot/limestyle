@@ -16,7 +16,6 @@
     <style type="text/css">
       body {
         background-color: #f8f8f8;
-        padding-top: 80px;
       }
       
       .navbar {
@@ -26,7 +25,7 @@
       
       .navbar-brand {
         height: 48px;
-        padding: 6px 16px;
+        padding: 6px 8px 6px 24px;
         transition: opacity 0.25s ease;
       }
       .navbar-brand:hover {
@@ -38,13 +37,147 @@
         line-height: 1.33333em;
       }
       
+      #menu-toggle {
+        color: #000;
+        font-size: 2em;
+        left: -0.25em;
+        position: absolute;
+        top: 12px;
+      }
+      
+      #wrapper {
+        padding-top: 60px;
+      }
+      
       .post {
-        margin: 1.5%;
-        width: 30.33333%;
+        margin: .5%;
+        width: 24%;
       }
       
       .post img {
         width: 100%;
+      }
+      
+      /* Sidebar styles */
+      
+      /* Toggle Styles */
+
+      #wrapper {
+          padding-left: 0;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          -o-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+      }
+
+      #wrapper.toggled {
+          padding-left: 250px;
+      }
+
+      #sidebar-wrapper {
+          z-index: 1000;
+          position: fixed;
+          left: 250px;
+          width: 0;
+          height: 100%;
+          margin-left: -250px;
+          overflow-y: auto;
+          background: #000;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          -o-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+      }
+
+      #wrapper.toggled #sidebar-wrapper {
+          width: 250px;
+      }
+
+      #page-content-wrapper {
+          width: 100%;
+          position: absolute;
+          padding: 15px;
+      }
+
+      #wrapper.toggled #page-content-wrapper {
+          position: absolute;
+          margin-right: -250px;
+      }
+
+      /* Sidebar Styles */
+
+      .sidebar-nav {
+          position: absolute;
+          top: 0;
+          width: 250px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+
+      .sidebar-nav li {
+          text-indent: 20px;
+          line-height: 40px;
+      }
+
+      .sidebar-nav li a {
+          display: block;
+          text-decoration: none;
+          color: #999999;
+      }
+
+      .sidebar-nav li a:hover {
+          text-decoration: none;
+          color: #fff;
+          background: rgba(255,255,255,0.2);
+      }
+
+      .sidebar-nav li a:active,
+      .sidebar-nav li a:focus {
+          text-decoration: none;
+      }
+
+      .sidebar-nav > .sidebar-brand {
+          height: 65px;
+          font-size: 18px;
+          line-height: 60px;
+      }
+
+      .sidebar-nav > .sidebar-brand a {
+          color: #999999;
+      }
+
+      .sidebar-nav > .sidebar-brand a:hover {
+          color: #fff;
+          background: none;
+      }
+
+      @media(min-width:768px) {
+          #wrapper {
+              padding-left: 250px;
+          }
+
+          #wrapper.toggled {
+              padding-left: 0;
+          }
+
+          #sidebar-wrapper {
+              width: 250px;
+          }
+
+          #wrapper.toggled #sidebar-wrapper {
+              width: 0;
+          }
+
+          #page-content-wrapper {
+              padding: 20px;
+              position: relative;
+          }
+
+          #wrapper.toggled #page-content-wrapper {
+              position: relative;
+              margin-right: 0;
+          }
       }
       
     </style>
@@ -54,9 +187,11 @@
      
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+   
+   <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
         <div class="navbar-header">
+          <a href="#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
           <a class="navbar-brand" href="{BlogURL}">
             <img alt="LimeStyle" src="http://static.tumblr.com/75d0wvp/5wvod1ibt/logo.png">
           </a>
@@ -69,120 +204,128 @@
         </ul>
       </div>
     </nav>
-    <div class="page-header hidden">
-    <div class="container">
-      <h1>We're working on something new <small>Come check soon...</small></h1>
-    </div>   
-  </div>
-    
-    <div class="container">
+   
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+              <ul class="sidebar-nav">
+                  <li class="sidebar-brand">
+                    Popular tags
+                  </li>
+                  <li>
+                      <a href="/tagged/desk/">#desk</a>
+                  </li>
+              </ul>
+          </div>
+      <div id="page-content-wrapper">
+          <div class="container-fluid">
 
-        <div class="posts">
-            {block:Posts}{block:Text}
-                    <div class="post text">
-                        {block:Title}
-                            <h3><a href="{Permalink}">{Title}</a></h3>
-                        {/block:Title}{Body}
-                    </div>
-                {/block:Text}{block:Photo}
-                    <div class="post photo thumbnail">
-                        {LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}"/>{LinkCloseTag}
+              <div class="posts">
+                  {block:Posts}{block:Text}
+                          <div class="post text">
+                              {block:Title}
+                                  <h3><a href="{Permalink}">{Title}</a></h3>
+                              {/block:Title}{Body}
+                          </div>
+                      {/block:Text}{block:Photo}
+                          <div class="post photo thumbnail">
+                              {LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}"/>{LinkCloseTag}
 
-                        {block:Caption}
-                            <div class="caption">{Caption}</div>
-                        {/block:Caption}
-                    </div>
-                {/block:Photo}{block:Panorama}
-                    <div class="post panorama">
-                        {linkOpenTag}
-                            <img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
-                        {linkCloseTag}{block:Caption}
-                            <div class="caption">{Caption}</div>
-                        {/block:Caption}
-                    </div>
-                {/block:Panorama}{block:Photoset}
-                    <div class="post photoset hidden">
-                        {Photoset-500}{block:Caption}
-                            <div class="caption">{Caption}</div>
-                        {/block:Caption}
-                    </div>
-                {/block:Photoset}{block:Quote}
-                    <div class="post quote">
-                        "{Quote}"
+                              {block:Caption}
+                                  <div class="caption">{Caption}</div>
+                              {/block:Caption}
+                          </div>
+                      {/block:Photo}{block:Panorama}
+                          <div class="post panorama">
+                              {linkOpenTag}
+                                  <img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
+                              {linkCloseTag}{block:Caption}
+                                  <div class="caption">{Caption}</div>
+                              {/block:Caption}
+                          </div>
+                      {/block:Panorama}{block:Photoset}
+                          <div class="post photoset hidden">
+                              {Photoset-500}{block:Caption}
+                                  <div class="caption">{Caption}</div>
+                              {/block:Caption}
+                          </div>
+                      {/block:Photoset}{block:Quote}
+                          <div class="post quote">
+                              "{Quote}"
 
-                        {block:Source}
-                            <div class="source">{Source}</div>
-                        {/block:Source}
-                    </div>
-                {/block:Quote}{block:link}
-                    <div class="post link">
-                        <a href="{URL}" class="link" {Target}>{Name}</a>
+                              {block:Source}
+                                  <div class="source">{Source}</div>
+                              {/block:Source}
+                          </div>
+                      {/block:Quote}{block:link}
+                          <div class="post link">
+                              <a href="{URL}" class="link" {Target}>{Name}</a>
 
-                        {block:Description}
-                            <div class="description">{Description}</div>
-                        {/block:Description}
-                    </div>
-                {/block:link}{block:Chat}
-                    <div class="post chat">
-                        {block:Title}
-                            <h3><a href="{Permalink}">{Title}</a></h3>
-                        {/block:Title}
+                              {block:Description}
+                                  <div class="description">{Description}</div>
+                              {/block:Description}
+                          </div>
+                      {/block:link}{block:Chat}
+                          <div class="post chat">
+                              {block:Title}
+                                  <h3><a href="{Permalink}">{Title}</a></h3>
+                              {/block:Title}
 
-                        <ul class="chat">
-                            {block:Lines}
-                                <li class="{Alt} user_{UserNumber}">
-                                    {block:Label}
-                                        <span class="label">{Label}</span>
-                                    {/block:Label}{Line}
-                                </li>
-                            {/block:Lines}
-                        </ul>
-                    </div>
-                {/block:Chat}{block:Video}
-                    <div class="post video">
-                        {Video-500}{block:Caption}
-                            <div class="caption">{Caption}</div>
-                        {/block:Caption}
-                    </div>
-                {/block:Video}{block:Audio}
-                    <div class="post audio">
-                        {AudioEmbed}{block:Caption}
-                            <div class="caption">{Caption}</div>
-                        {/block:Caption}
-                    </div>
-                {/block:Audio}{/block:Posts}
+                              <ul class="chat">
+                                  {block:Lines}
+                                      <li class="{Alt} user_{UserNumber}">
+                                          {block:Label}
+                                              <span class="label">{Label}</span>
+                                          {/block:Label}{Line}
+                                      </li>
+                                  {/block:Lines}
+                              </ul>
+                          </div>
+                      {/block:Chat}{block:Video}
+                          <div class="post video">
+                              {Video-500}{block:Caption}
+                                  <div class="caption">{Caption}</div>
+                              {/block:Caption}
+                          </div>
+                      {/block:Video}{block:Audio}
+                          <div class="post audio">
+                              {AudioEmbed}{block:Caption}
+                                  <div class="caption">{Caption}</div>
+                              {/block:Caption}
+                          </div>
+                      {/block:Audio}{/block:Posts}
+              </div>
+
+            {block:Pagination}
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+               {block:PreviousPage}
+                <li>
+                  <a href="{PreviousPage}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                {/block:PreviousPage}
+                {block:JumpPagination length="3"}
+                  {block:CurrentPage}
+                    <li><span class="current_page">{PageNumber}</span>
+                  {/block:CurrentPage}
+                  {block:JumpPage}
+                    <li><a class="jump_page" href="{URL}">{PageNumber}</a></li>
+                  {/block:JumpPage}
+                {/block:JumpPagination}
+                {block:NextPage}
+                <li>
+                  <a href="{NextPage}" class="next-page" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+                {/block:NextPage}
+              </ul>
+            </nav>
+            {/block:Pagination}
+            
+          </div>
         </div>
-    
-      {block:Pagination}
-      <nav aria-label="Page navigation">
-        <ul class="pagination">
-         {block:PreviousPage}
-          <li>
-            <a href="{PreviousPage}" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          {/block:PreviousPage}
-          {block:JumpPagination length="3"}
-            {block:CurrentPage}
-              <li><span class="current_page">{PageNumber}</span>
-            {/block:CurrentPage}
-            {block:JumpPage}
-              <li><a class="jump_page" href="{URL}">{PageNumber}</a></li>
-            {/block:JumpPage}
-          {/block:JumpPagination}
-          {block:NextPage}
-          <li>
-            <a href="{NextPage}" class="next-page" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-          {/block:NextPage}
-        </ul>
-      </nav>
-      
-      {/block:Pagination}
-        
     </div>
     
     <!-- Loading jQuery -->
@@ -206,7 +349,8 @@
     <script type="text/javascript">
       $(document).ready(function() {
         $('.posts').masonry({
-          itemSelector: '.post'
+          itemSelector: '.post',
+          isResizable: true
         });
         
         $('.posts').imagesLoaded().progress( function() {
@@ -243,6 +387,17 @@
         });
       });
       
+    </script>
+    
+    
+    <!-- Menu Toggle Script -->
+    <script type="text/javascript">
+      $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled").done( function() {
+            $('.posts').masonry('layout');
+          });
+      });
     </script>
     
   </body>
